@@ -11,6 +11,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/32bed38760.js" crossorigin="anonymous"></script>
 
     <title>semiprojectv2</title>
   </head>
@@ -29,7 +31,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>로그인</h3>
-                    <button type="button" class="btn btn-light">닫기</button>
+                    <button type="button" id="lgmbtn" class="btn btn-light">닫기</button>
                 </div>
 
                 <div class="modal-body">
@@ -53,7 +55,7 @@
                 </div>
 
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-danger">로그인</button>
+                    <button type="button" id="loginbtn" class="btn btn-danger">로그인</button>
                     <button type="button" class="btn btn-warning">아이디/비밀번호 찾기</button>
                 </div>
             </div>

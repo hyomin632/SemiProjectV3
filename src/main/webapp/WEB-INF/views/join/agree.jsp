@@ -2,7 +2,7 @@
 
 <div id="main">
 	<div>
-	    <i class="fas fa-users fa-2x"></i>회원가입
+	    <i class="fas fa-users fa-2x"> 회원가입</i>
 	    <hr>
 	</div> <!-- 페이지 타이틀 -->
 
