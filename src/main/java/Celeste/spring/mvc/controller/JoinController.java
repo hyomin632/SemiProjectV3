@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +47,7 @@ public class JoinController {
     // 서블릿에서 제공하는 HttpServletResponse를 이용하면,
     // 스프링의 뷰리졸버 없이 바로 응답을 출력할 수 있음
     // 결과는 자바스크립트의 ajax를 이용해서 적절히 가공한 뒤 폼에 출력
+    @ResponseBody
     @GetMapping("/join/zipcode")
     public void zipcode(String dong, HttpServletResponse res) {
 
@@ -54,6 +56,20 @@ public class JoinController {
             res.setContentType("application/json; charset=UTF-8");
             // 응답 결과를 뷰 없이 브라우저로 바로 출력
             res.getWriter().print( msrv.findZipcode(dong) );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 아이디 중복 검사
+    // /join/checkuid?uid=아이디
+    // 사용 가능 아이디 -> 결과 0
+    // 사용 불가능 아이디 -> 결과 1
+    @ResponseBody
+    @GetMapping("/join/checkuid")
+    public void checkuid(String uid, HttpServletResponse res) {
+        try {
+            res.getWriter().println( msrv.checkUserid(uid) );
         } catch (IOException e) {
             e.printStackTrace();
         }

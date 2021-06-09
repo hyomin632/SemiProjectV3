@@ -65,7 +65,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public String checkUserid(String uid) {
-        return null;
+        return mdao.selectOneUserid(uid) + "";
     }
 
     @Override

@@ -32,6 +32,54 @@ $('#cancel2btn').on('click', function () {
     location.href = '/';
 });
 
+// userid check
+$('#userid').on('blur', function() {
+    checkuserid();
+});
+$('#userid').on('focus', function() {
+    $('#uidmsg').text('8~16 자의 영문 소문자, 숫자와 특수기호(_)만 사용할 수 있습니다.');
+    $('#uidmsg').attr('style', 'color:black');
+});
+
+// ajax check userid
+function checkuserid() {
+    let uid = $('#userid').val();
+    if (uid == '') {
+        $('#uidmsg').text('8~16 자의 영문 소문자, 숫자와 특수기호(_)만 사용할 수 있습니다.');
+        $('#uidmsg').attr('style', 'color:black');
+        return;
+    } // 아이디를 입력하지 않고 탭을 누른 경우
+    $.ajax({
+        url: '/join/checkuid',
+        type: 'GET',
+        data: { 'uid': uid }
+    })
+        .done(function (data){
+            let msg = '사용 불가능한 아이디입니다!';
+            $('#uidmsg').attr('style', 'color:red');
+
+            if (data.trim() == '0') {
+                msg = '사용 가능한 아이디입니다!';
+                $('#uidmsg').attr('style', 'color:blue');
+            }
+            $('#uidmsg').text(msg);
+        })
+        .fail(function (xhr, status, error){
+            alert(xhr.status + '/' + error);
+        });
+}
+
+// check equal passwd
+$('#chkpwd').on('blur', function() {
+    if ($('#passwd').val() != $('#chkpwd').val()) {
+        $('#pwdmsg').text('입력한 비밀번호가 일치하지 않습니다!');
+        $('#pwdmsg').attr('style', 'color:red');
+    } else {
+        $('#pwdmsg').text('입력한 비밀번호가 일치합니다!');
+        $('#pwdmsg').attr('style', 'color:blue');
+    }
+});
+
 // joinme
 $('#joinbtn').on('click', function () {
     if ($('#userid').val() == '')
@@ -53,12 +101,12 @@ $('#joinbtn').on('click', function () {
     else if (grecaptcha.getResponse() == '')
         alert('자동가입 방지 확인 필요!');
     else {
-        $('#jumin').val($('#jumin1').val() + '-' + $('#jumin2').val());
-        $('#zipcode').val($('#zip1').val() + '-' + $('#zip2').val());
-        $('#email').val($('#email1').val() + '@' + $('#email2').val());
-        $('#phone').val($('#tel1').val() + '-' + $('#tel2').val() + '-' + $('#tel3').val());
+        $('#jumin').val( $('#jumin1').val() + '-' + $('#jumin2').val() );
+        $('#zipcode').val( $('#zip1').val() + '-' + $('#zip2').val() );
+        $('#email').val( $('#email1').val() + '@' + $('#email2').val() );
+        $('#phone').val( $('#tel1').val() + '-' + $('#tel2').val() + '-' + $('#tel3').val() );
 
-        const frm = $('joinfrm');
+        const frm = $('#joinfrm');
         frm.attr('action', '/join/joinok');
         frm.attr('method', 'post');
         frm.submit();
@@ -67,6 +115,40 @@ $('#joinbtn').on('click', function () {
 
 $('#cancelbtn').on('click', function () {
     location.href = '/';
+});
+
+// show zipcode
+$('#findzipbtn').on('click', function () {
+    $.ajax({
+        url: '/join/zipcode',
+        type: 'GET',
+        data: { dong: $('#dong').val() }
+    })
+        .done(function (data) {
+            // 서버에서 넘어온 데이터는 JSON 형식임
+            // alert(data); // object로 출력
+            let opts = "";
+            $.each(data, function () {
+                let zip = '';
+                $.each(this, function (k, v) {
+                    if (v != null)
+                        zip += v + ' ';
+                }); // 열 단위 반복 처리
+                opts += '<option>' + zip + '</option>';
+            }); // 행 단위 반복 처리
+            $('#addrlist').find('option').remove(); // 기존 option 태그 삭제
+            $('#addrlist').append(opts); // 새로 만든 option 태그를 추가
+        })
+        .fail(function (xhr, status, error) {
+            alert(xhr.status + '/' + error);
+        });
+});
+
+// zipcode dong prevent enter key
+$('input[type="text"]').keydown(function () {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+    }
 });
 
 // send zipcode

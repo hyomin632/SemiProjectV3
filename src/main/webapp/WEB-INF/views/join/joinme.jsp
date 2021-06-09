@@ -44,13 +44,13 @@
 	               <div class="form-group row">
 	                   <label class="col-2 col-form-label text-danger text-right" for="userid">아이디</label>
 	                   <input type="text" name="userid" id="userid" class="border-danger form-control col-3">
-	                   <span class="col-form-label">&nbsp;8~16 자의 영문 소문자, 숫자와 특수기호(_)만 사용할 수 있습니다.</span>
+	                   <span id="uidmsg" class="col-form-label">&nbsp;8~16 자의 영문 소문자, 숫자와 특수기호(_)만 사용할 수 있습니다.</span>
 	               </div> <!-- 아이디 -->
 	
 	               <div class="form-group row">
 	                   <label class="col-2 col-form-label text-danger text-right" for="passwd">비밀번호</label>
 	                   <input type="password" name="passwd" id="passwd" class="border-danger form-control col-3">
-	                   <span class="col-form-label">&nbsp;8~16 자의 영문 소문자, 숫자와 특수기호(_)만 사용할 수 있습니다.</span>
+	                   <span id="pwdmsg" class="col-form-label">&nbsp;8~16 자의 영문 소문자, 숫자와 특수기호(_)만 사용할 수 있습니다.</span>
 	               </div> <!-- 비밀번호 -->
 	
 	               <div class="form-group row">
@@ -64,7 +64,7 @@
 	                   <input type="text" name="zip1" id="zip1" class="border-danger form-control col-1" readonly>&nbsp;&mdash;&nbsp;
 	                   <input type="text" name="zip2" id="zip2" class="border-danger form-control col-1" readonly>
 	                   &nbsp;
-	                   <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#zipcodemodal"><i class="bi bi-question-circle"></i> 우편번호 찾기</button>
+	                   <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#zipmodal"><i class="bi bi-question-circle"></i> 우편번호 찾기</button>
 	               </div> <!-- 우편번호 -->
 	
 	               <div class="form-group row">

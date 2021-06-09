@@ -13,7 +13,7 @@
    </insert>
 
     <select id="selectZipcode" statementType="PREPARED" parameterType="String" resultType="Celeste.spring.mvc.vo.Zipcode">
-        select * from zipcode where zipcode.DONG like #{dong}
+        select zipcode, sido, gugun, dong, ri, bunji from zipcode where dong like #{dong}
     </select>
 
     <select id="checkUserid" statementType="PREPARED" parameterType="String" resultType="Integer">
