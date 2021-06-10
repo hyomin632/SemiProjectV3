@@ -1,7 +1,12 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%-- 줄 바꿈 기호를 변수로 생성 -> br태그 변환 필요! --%>
+<c:set var="newChar" value="
+" scope="application" />
 
 <div id="main">
-	
 	<div>
 	    <i class="fas fa-comments fa-2x"> 자유 게시판</i>
 	    <hr>
@@ -22,16 +27,16 @@
             <table class="table col-10 offset-1">
                 <tr class="tbbg1 text-center">
                     <th colspan="2">
-                    <h2>[날씨] 우산 안 갖고 나올 때마다 비가 오죠?</h2>
+                    <h2>${bd.title}</h2>
                     </th>
                 </tr>
                 <tr class="tbbg2">
-                    <td style="width: 50%">Celeste</td>
-                    <td class="text-right">2021-05-21 11:49:57 / 19 / 87</td>
+                    <td style="width: 50%">${bd.userid}</td>
+                    <td class="text-right">${bd.regdate} / ${bd.thumbup} / ${bd.views}</td>
                 </tr>
-                <tr class="tbbg3">
+                <tr class="tbbg3 bdcsize">
                     <td colspan="2">
-                        맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~!
+                        ${fn:replace(bd.contents, newChar, "<br>")}
                     </td>
                 </tr>
             </table>
@@ -39,12 +44,15 @@
 
         <div class="row">
             <div class="col-5 offset-1">
-            <button type="button" class="btn btn-warning text-white"><i class="bi bi-question-circle"></i> 수정하기</button>
-            <button type="button" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i> 삭제하기</button>
-        </div>
-        <div class="col-5 text-right">
-            <button type="button" class="btn btn-light"><i class="bi bi-list-task"></i> 목록으로</button>
-        </div>
+                <%-- 자신이 작성한 글에 대해 수정/삭제 버튼이 표시되어야 함 --%>
+                <c:if test="${not empty UID and UID eq bd.userid}">
+                    <button type="button" class="btn btn-warning text-white"><i class="bi bi-question-circle"></i> 수정하기</button>
+                    <button type="button" class="btn btn-danger"><i class="bi bi-x-circle-fill"></i> 삭제하기</button>
+                </c:if>
+            </div>
+            <div class="col-5 text-right">
+                <button type="button" class="btn btn-light"><i class="bi bi-list-task"></i> 목록으로</button>
+            </div>
         </div>
     </div> <!-- 본문글 -->
 
@@ -93,44 +101,3 @@
         </div>
     </div> <!-- 댓글 쓰기 -->
 </div>
-        
-<!-- 로그인 폼 모달 -->
-<div class="modal" id="loginfrm" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>로그인</h3>
-                <button type="button" class="btn btn-light">닫기</button>
-            </div>
-
-            <div class="modal-body">
-                <form name="loginfrm" id="loginfrm" method="post">
-                    <div class="form-group row text-danger">
-                        <label class="col-form-label col-4 text-right" for="userid">아이디</label>
-                        <input type="text" name="userid" id="userid" class="form-control col-5 border-danger">
-                    </div>
-                    <div class="form-group row text-danger">
-                        <label class="col-form-label col-4 text-right" for="passwd">비밀번호</label>
-                        <input type="password" name="passwd" id="passwd" class="form-control col-5 border-danger">
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4"></div>
-                        <div class="form-check">
-                        <input type="checkbox" class="form-check-input border-warning">
-                        <label class="form-check-label text-warning">로그인 상태 유지</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-danger">로그인</button>
-                <button type="button" class="btn btn-warning">아이디/비밀번호 찾기</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- jQuery and Bootstrap Bundle (includes Popper) -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>

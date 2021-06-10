@@ -5,7 +5,6 @@ import Celeste.spring.mvc.vo.Board;
 import java.util.List;
 
 public interface BoardService {
-
     boolean newBoard(Board b);
     boolean modifyBoard(Board b);
     boolean removeBoard(String bdno);
