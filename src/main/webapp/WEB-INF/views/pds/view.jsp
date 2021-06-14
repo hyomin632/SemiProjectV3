@@ -1,4 +1,22 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%-- 첨부파일 아이콘 선택 --%>
+<c:set var="atticon1" value="${p.ftype1}" />
+<c:if test="${p.ftype1 ne 'zip' and p.ftype1 ne 'jpg' and p.ftype1 ne 'txt'}">
+    <c:set var="atticon1" value="file" />
+</c:if>
+
+<c:set var="atticon2" value="${p.ftype2}" />
+<c:if test="${p.ftype2 ne 'zip' and p.ftype2 ne 'jpg' and p.ftype2 ne 'txt'}">
+    <c:set var="atticon2" value="file" />
+</c:if>
+
+<c:set var="atticon3" value="${p.ftype3}" />
+<c:if test="${p.ftype3 ne 'zip' and p.ftype3 ne 'jpg' and p.ftype3 ne 'txt'}">
+    <c:set var="atticon3" value="file" />
+</c:if>
 
 <div id="main">
 	
@@ -22,18 +40,32 @@
             <table class="table col-10 offset-1">
                 <tr class="tbbg1 text-center">
                     <th colspan="2">
-                    <h2>[날씨] 우산 안 갖고 나올 때마다 비가 오죠?</h2>
+                    <h2>${p.title}</h2>
                     </th>
                 </tr>
                 <tr class="tbbg2">
-                    <td style="width: 50%">Celeste</td>
-                    <td class="text-right">2021-05-21 11:49:57 / 19 / 87</td>
+                    <td style="width: 50%">${p.userid}</td>
+                    <td class="text-right">${p.regdate} / ${p.thumbup} / ${p.views}</td>
                 </tr>
-                <tr class="tbbg3">
+                <tr class="tbbg3 bdcsize">
                     <td colspan="2">
-                        맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~! 맨날 우산 안 갖고 올 때마다 비 오고, 우산 갖고 오면 비 오고 날씨 짜증나~!~!
+                        ${p.contents}
                     </td>
                 </tr>
+                <tr><td colspan="2" class="tbbg4 patxt">첨부1 :
+                    <img src="/img/${atticon1}.png">
+                    ${p.fname1} (${p.fsize1}KB, ${p.fdown1}회 다운로드함)</td></tr>
+
+                <c:if test="${p.fname2 ne '-'}">
+                    <tr><td colspan="2" class="tbbg4 patxt">첨부2 :
+                        <img src="/img/${atticon2}.png">
+                        ${p.fname2} (${p.fsize2}KB, ${p.fdown2}회 다운로드함)</td></tr>
+                </c:if>
+                <c:if test="${p.fname3 ne '-'}">
+                    <tr><td colspan="2" class="tbbg4 patxt">첨부3 :
+                        <img src="/img/${atticon3}.png">
+                        ${p.fname3} (${p.fsize3}KB, ${p.fdown3}회 다운로드함)</td></tr>
+                </c:if>
             </table>
         </div>
 
@@ -93,44 +125,3 @@
         </div>
     </div> <!-- 댓글 쓰기 -->
 </div>
-        
-<!-- 로그인 폼 모달 -->
-<div class="modal" id="loginfrm" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>로그인</h3>
-                <button type="button" class="btn btn-light">닫기</button>
-            </div>
-
-            <div class="modal-body">
-                <form name="loginfrm" id="loginfrm" method="post">
-                    <div class="form-group row text-danger">
-                        <label class="col-form-label col-4 text-right" for="userid">아이디</label>
-                        <input type="text" name="userid" id="userid" class="form-control col-5 border-danger">
-                    </div>
-                    <div class="form-group row text-danger">
-                        <label class="col-form-label col-4 text-right" for="passwd">비밀번호</label>
-                        <input type="password" name="passwd" id="passwd" class="form-control col-5 border-danger">
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4"></div>
-                        <div class="form-check">
-                        <input type="checkbox" class="form-check-input border-warning">
-                        <label class="form-check-label text-warning">로그인 상태 유지</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-danger">로그인</button>
-                <button type="button" class="btn btn-warning">아이디/비밀번호 찾기</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- jQuery and Bootstrap Bundle (includes Popper) -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
