@@ -35,12 +35,32 @@ public class PdsDAOImpl implements PdsDAO {
     }
 
     @Override
-    public Pds selectOneFname(String pno, String order) {
-        return null;
+    public Pds selectOneFname(Map<String, String> param) {
+        return sqlSession.selectOne("pds.selectFname", param);
     }
 
     @Override
     public int downCountPds(Map<String, String> param) {
-        return 0;
+        return sqlSession.update("pds.updateDown", param);
+    }
+
+    @Override
+    public void updateRecmd(String pno) {
+        sqlSession.update("pds.updateThumbs", pno);
+    }
+
+    @Override
+    public String selectPrvpno(String pno) {
+        return sqlSession.selectOne("pds.selectPrv", pno);
+    }
+
+    @Override
+    public String selectNxtpno(String pno) {
+        return sqlSession.selectOne("pds.selectNxt", pno);
+    }
+
+    @Override
+    public void deletePds(String pno) {
+        sqlSession.delete("pds.deletePds", pno);
     }
 }
