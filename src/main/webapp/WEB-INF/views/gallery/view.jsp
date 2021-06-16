@@ -1,14 +1,10 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<style>
-    .tbbg1 { background: #dff0f8; }
-    .tbbg2 { background: #ccff99; }
-    .tbbg3 { background: #ffffcc; }
-    .pushdwn { margin-top: 50px; }
-    .cmtbg1 { background: pink; padding: 7px 0; }
-    .cmtbg2 { background: lightgreen; padding: 7px 0; }
-    .pushright { float: right; }
-</style>
+<c:set var="fnames" value="${fn:split(g.fnames, '/')}" />
+<c:set var="fsizes" value="${fn:split(g.fsizes, '/')}" />
+<c:set var="baseURL" value="http://localhost/cdn/" />
 
 <div id="main">
 	<div>
@@ -31,24 +27,31 @@
             <table class="table col-10 offset-1">
                 <tr class="tbbg1 text-center">
                     <th colspan="2">
-                    <h2>[날씨] 우산 안 갖고 나올 때마다 비가 오죠?</h2>
+                    <h2>${g.title}</h2>
                     </th>
                 </tr>
                 <tr class="tbbg2">
-                    <td style="width: 50%">Celeste</td>
-                    <td class="text-right">2021-05-21 11:49:57 / 19 / 87</td>
+                    <td style="width: 50%">${g.userid}</td>
+                    <td class="text-right">${fn:substring(g.regdate, 0, 10)} / ${g.thumbup} / ${g.views}</td>
                 </tr>
                 <tr class="tbbg3">
                     <td colspan="2">
-                        <div><img src="/img/28FC8D8F-B0BC-4510-99F7-4FEC4BF06B9A_1_105_c.jpeg" class="img-fluid"></div>
+                        <c:forEach var="f" items="${fnames}">
+                            <c:set var="pos" value="${fn:indexOf(f, '.')}" />
+                            <c:set var="fname" value="${fn:substring(f, 0, pos)}" />
+                            <c:set var="fext" value="${fn:substring(f, pos + 1, fn:length(f))}" />
+                            <div>
+                                <img src="${baseURL}${fname}${g.uuid}.${fext}" class="img-fluid">
+                            </div>
+                        </c:forEach>
                     </td>
-                </tr>
-                <tr><td colspan="2" class="tbbg4">
-                    <td><i class="fas fa-file-archive"> homework.zip (123KB)</i></td></tr>
-                <tr><td colspan="2" class="tbbg4">
-                    <td><i class="fas fa-file-alt"> homework.txt (456KB)</i></td></tr>
-                <tr><td colspan="2" class="tbbg4">
-                    <td><i class="fas fa-file-image"> homework.png (789KB)</i></td></tr>
+                </tr> <!-- 본문 -->
+
+                <%-- 첨부파일 표시 --%>
+                <c:forEach begin="0" end="${fn:length(fnames) - 1}" var="i">
+                    <tr><td colspan="2" class="tbbg4">
+                        <td><i class="fas fa-file-archive"></i> ${fnames[i]} (${fsizes[i]}KB)</td></tr>
+                </c:forEach>
             </table>
         </div>
 
@@ -109,44 +112,3 @@
     </div> <!-- 댓글 쓰기 -->
 
 </div>
-
-<!-- 로그인 폼 모달 -->
-<div class="modal" id="loginfrm" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>로그인</h3>
-                <button type="button" class="btn btn-light">닫기</button>
-            </div>
-
-            <div class="modal-body">
-                <form name="loginfrm" id="loginfrm" method="post">
-                    <div class="form-group row text-danger">
-                        <label class="col-form-label col-4 text-right" for="userid">아이디</label>
-                        <input type="text" name="userid" id="userid" class="form-control col-5 border-danger">
-                    </div>
-                    <div class="form-group row text-danger">
-                        <label class="col-form-label col-4 text-right" for="passwd">비밀번호</label>
-                        <input type="password" name="passwd" id="passwd" class="form-control col-5 border-danger">
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4"></div>
-                        <div class="form-check">
-                        <input type="checkbox" class="form-check-input border-warning">
-                        <label class="form-check-label text-warning">로그인 상태 유지</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-danger">로그인</button>
-                <button type="button" class="btn btn-warning">아이디/비밀번호 찾기</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- jQuery and Bootstrap Bundle (includes Popper) -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>

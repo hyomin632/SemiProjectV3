@@ -16,6 +16,7 @@
 
     <!-- user define CSS -->
     <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/gallery.css">
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/32bed38760.js" crossorigin="anonymous"></script>
@@ -74,6 +75,7 @@
     <script src="/js/join.js"></script>
     <script src="/js/board.js"></script>
     <script src="/js/pds.js"></script>
+    <script src="/js/gallery.js"></script>
 
     <script>
         // board findtype tag setting
