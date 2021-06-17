@@ -32,7 +32,7 @@
                         <textarea id="contents" name="contents" rows="15" class="form-control col-9 border-danger"></textarea>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-2 text-right text-danger">자동 가입 방지</label>
+                        <label class="col-form-label col-2 text-right text-danger">자동 기입 방지</label>
                         <div class="g-recaptcha" data-sitekey="6LfYIwgbAAAAAJH66wTOE11GOtExqC-Svf_sATdq"></div>
                         <input type="hidden" id="g-recaptcha" name="g-recaptcha">
                     </div>
