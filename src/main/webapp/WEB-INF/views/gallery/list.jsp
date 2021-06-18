@@ -33,9 +33,14 @@
         <div class="col-12">
             <ul class="list-inline moveright">
                 <c:forEach var="g" items="${gals}">
+                    <c:set var="f" value="${fn:split(g.fnames, '/')[0]}" />
+                    <c:set var="pos" value="${fn:indexOf(f, '.')}" />
+                    <c:set var="fname" value="${fn:substring(f, 0, pos)}" />
+                    <c:set var="fext" value="${fn:substring(f, pos + 1, fn:length(f))}" />
+
                     <li class="list-inline-item pushdown">
                         <div class="card cdwide">
-                            <img src="${thumbURL}small_${g.gno}_${fn:split(g.fnames, "[/]")[0]}" class="imgsize card-img-top" onclick="showimg('${g.gno}')">
+                            <img src="${thumbURL}small_${g.gno}_${fname}${g.uuid}.${fext}" class="imgsize card-img-top" onclick="showimg('${g.gno}')">
                             <div class="card-body">
                                 <h5 class="card-title">${g.title}</h5>
                                 <p class="card-text">${g.userid}

@@ -39,8 +39,9 @@ public class ImgUploadUtil {
         String ofname = f.getOriginalFilename();
         // String nfname = makeUUID() + "_" + ofname;
 
+        System.out.println(ofname);
         int pos = ofname.lastIndexOf(".");
-        String nfname = ofname.substring(0, pos) + uuid + "." + ofname.substring(pos +1); // 파일명 생성
+        String nfname = ofname.substring(0, pos) + uuid + "." + ofname.substring(pos + 1); // 파일명 생성
 
         try {
             f.transferTo(new File(uploadPath + nfname)); // 이미지 저장
@@ -54,7 +55,7 @@ public class ImgUploadUtil {
     // 업로드한 이미지들 중 첫 번째 이미지의 썸네일 생성
     public void imageCropResize(String fname, String id) {
 
-        // 서버에 업로드된 파일이름 (썸내일 대상)
+        // 서버에 업로드된 파일이름 (썸네일 대상)
         String ofname = uploadPath + fname;
         // 업로드된 파일이름에서 확장자 부분 추출
         String imgtype = fname.substring(fname.lastIndexOf(".") + 1);
